@@ -16,8 +16,8 @@ public class Consumer {
 
 
     public static void main(String[] args) {
-        String bootstrapServers="localhost:9092";
-        String consumerGroupId="java-consumer";
+        String bootstrapServers="127.0.0.1:9092";
+        String consumerGroupId="java-group-consumer";
         Properties p = new Properties();
         p.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,bootstrapServers);
         p.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
@@ -28,6 +28,7 @@ public class Consumer {
         KafkaConsumer<String,String> consumer = new KafkaConsumer<>(p);
         consumer.subscribe(Arrays.asList("het"));
         while(true){
+            System.out.println("hi");
             ConsumerRecords<String,String> records= consumer.poll(Duration.ofMillis(1000));
             for(ConsumerRecord record:records){
                 System.out.println("key"+record.key());
